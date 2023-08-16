@@ -95,12 +95,13 @@ bool wifi_mqtt::connect_mqtt()
       //mqtt_client.publish(topic_discovery_b, "{\"automation_type\":\"trigger\",\"type\":\"button_short_press\",\"subtype\":\"button_1\",\"topic\":\"home/deurbel\",\"device\":{\"identifiers\":[\"ESP8266-13360373\"],\"name\":\"Deurbel\",\"model\":\"esp_deurbel\",\"manufacturer\":\"Witje\"}}");
       //mqtt_client.publish(topic_discovery, payload,true);
       
+      return true;
     } else {
       Serial.print("failed, rc=");
       Serial.print(mqtt_client.state());
+      return false;
     }
   }
-  return true;
 }
 
 bool wifi_mqtt::reconnect()
@@ -117,6 +118,7 @@ bool wifi_mqtt::reconnect()
       if (!mqtt_client.connected() and _diffMqtt>intervalMqtt) {
         connect_mqtt();
         _previousTimeMqtt += _diffMqtt;
+        return false;
       }
       // indien mqtt connected, dan mag je .loop doen
       if (mqtt_client.connected()){ 
