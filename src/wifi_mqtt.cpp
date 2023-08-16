@@ -74,7 +74,7 @@ bool wifi_mqtt::connect_mqtt()
 {
   mqtt_client.setServer(_mqttServer, 1883);
   mqtt_client.setBufferSize(1024);
-  Serial.printf("   Server IP: %s\r\n",_mqtt_server);  
+  Serial.printf("   Server IP: %s\r\n",_mqttServer);  
   //Serial.printf("   Username:  %s\r\n",mqtt_user);
   //Serial.println("   Cliend Id: "+mqtt_client_id);  
   Serial.println("   MQTT configured!");       
