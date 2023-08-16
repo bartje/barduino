@@ -17,7 +17,7 @@ wifi_mqtt::wifi_mqtt(String wifiSsid, String wifiPassword)
 {
     _wifiSsid = wifiSsid;
     _wifiPassword = wifiPassword ;
-    _mqttServer;
+    //_mqttServer;
     _mqttActive = false;
     _previousTimeMqtt = millis();                  
     _previousTimeWifi = millis();                  
