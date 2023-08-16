@@ -20,7 +20,7 @@ class wifi_mqtt
     void begin();
     bool connect_wifi();
     bool connect_mqtt();
-    bool reconnect()
+    bool reconnect();
   private:
     char _wifiSsid;
     char _wifiPassword;

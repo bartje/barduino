@@ -9,9 +9,9 @@
 //#include <WiFi.h>         //For Wifi
 //#include <PubSubClient.h> //For MQTT
 
-DEFINE intervalMQTT = 10000   //tijd tussen mqtt reconnect attempts
-DEFINE intervalWifi = 30000   //tijd tussen wifi reconnect attempts
-DEFINE maxNotConnectedCounter = 150
+#define intervalMQTT = 10000   //tijd tussen mqtt reconnect attempts
+#define intervalWifi = 30000   //tijd tussen wifi reconnect attempts
+#define maxNotConnectedCounter = 150
 
 wifi_mqtt::wifi_mqtt(char wifiSsid, char wifiPassword)
 {
@@ -35,10 +35,10 @@ wifi_mqtt::wifi_mqtt(char wifiSsid, char wifiPassword, char mqttServer)
     WiFiClient espClient;
     PubSubClient mqtt_client(espClient);
     for(int i=0; i<17; i=i+8) {
-	    chipId |= ((ESP.getEfuseMac() >> (40 - i)) & 0xff) << i;
+	    uint32_t chipId |= ((ESP.getEfuseMac() >> (40 - i)) & 0xff) << i;
 	  }
-    mqtt_client_id="ESP32-";
-    mqtt_client_id=mqtt_client_id+chipId;        
+    _mqtt_client_id="ESP32-";
+    _mqtt_client_id=_mqtt_client_id+chipId;        
 
 }
 
@@ -53,7 +53,7 @@ bool wifi_mqtt::connect_wifi()
   delay(2);
   Serial.print("Connecting to ");
   Serial.print(_wifiSsid);
-  WiFi.begin(_wifiSsid, wifiPassword);
+  WiFi.begin(_wifiSsid, _wifiPassword);
   while (WiFi.status() != WL_CONNECTED) {
     delay(200);
     Serial.print(".");
