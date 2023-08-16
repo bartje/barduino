@@ -13,7 +13,7 @@
 #define intervalWifi 30000   //tijd tussen wifi reconnect attempts
 #define maxNotConnectedCounter 150
 
-wifi_mqtt::wifi_mqtt(char wifiSsid, char wifiPassword)
+wifi_mqtt::wifi_mqtt(String wifiSsid, String wifiPassword)
 {
     _wifiSsid = wifiSsid;
     _wifiPassword = wifiPassword ;
@@ -24,7 +24,7 @@ wifi_mqtt::wifi_mqtt(char wifiSsid, char wifiPassword)
  
 }
 
-wifi_mqtt::wifi_mqtt(char wifiSsid, char wifiPassword, char mqttServer)
+wifi_mqtt::wifi_mqtt(String wifiSsid, String wifiPassword, String mqttServer)
 {
     _wifiSsid = wifiSsid;
     _wifiPassword = wifiPassword ;
