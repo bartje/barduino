@@ -84,9 +84,13 @@ bool wifi_mqtt::connect_mqtt() {
   
   if (!mqtt_client.connected()) {
     Serial.print("Attempting MQTT connection...");
+    Serial.print("    client: ");
+    Serial.println(_mqtt_client_id.c_str()); 
+    Serial.print("    client: ");
+    Serial.println(_mqtt_client_id); 
     // Attempt to connect   
     //if (mqtt_client.connect(mqtt_client_id.c_str(), mqtt_user, mqtt_password)) {
-    if (mqtt_client.connect(_mqtt_client_id)) {
+    if (mqtt_client.connect(_mqtt_client_id.c_str())) {
       Serial.println("MQTT connected");
       rc = true;
     } else {
