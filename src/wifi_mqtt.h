@@ -24,7 +24,7 @@ class wifi_mqtt
   private:
     String _wifiSsid;
     String _wifiPassword;
-    String _mqttServer;
+    char _mqttServer;
     bool _mqttActive;
     unsigned long _previousTimeMqtt;                  
     unsigned long _previousTimeWifi;                  
