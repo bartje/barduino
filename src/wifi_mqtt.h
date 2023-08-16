@@ -30,7 +30,7 @@ class wifi_mqtt
     unsigned long _previousTimeWifi;                  
     uint32_t _notConnectedCounter;
     String _mqtt_client_id;
-    uint32_t _chipId
+    uint32_t _chipId;
     
 
 };
