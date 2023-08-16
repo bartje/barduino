@@ -3,10 +3,11 @@
   Created by me
 */
 
-#include "Arduino.h"
 #include "wifi_mqtt.h"
-#include <WiFi.h>         //For Wifi
-#include <PubSubClient.h> //For MQTT
+#include "Arduino.h"
+
+//#include <WiFi.h>         //For Wifi
+//#include <PubSubClient.h> //For MQTT
 
 DEFINE intervalMQTT = 10000   //tijd tussen mqtt reconnect attempts
 DEFINE intervalWifi = 30000   //tijd tussen wifi reconnect attempts
