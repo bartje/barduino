@@ -105,5 +105,26 @@ bool wifi_mqtt::connect_mqtt()
 
 bool wifi_mqtt::reconnect()
 {
+  _diffWifi = millis() - _previousTimeWifi;
+  
+  if (WiFi.status() == WL_CONNECTED) {
+    _previousTimeWifi += _diffWifi;
+
+    _diffMqtt = millis() - _previousTimeMqtt;
+    if (!mqtt_client.connected() and _diffMqtt>intervalMqtt) {
+      mqtt_reconnect();
+      _previousTimeMqtt += _diffMqtt;
+    }
+    // indien mqtt connected, dan mag je .loop doen
+    if (mqtt_client.connected()){ 
+      mqtt_client.loop();
+      _previousTimeMqtt += _diffMqtt;
+    }
+    
+  } else if (diffWifi > intervalWifi) {
+      WiFi.reconnect();
+      previousTimeWifi += diffWifi;
+  }
+  
   return true;
 }

@@ -27,7 +27,9 @@ class wifi_mqtt
     const char* _mqttServer;
     bool _mqttActive;
     unsigned long _previousTimeMqtt;                  
-    unsigned long _previousTimeWifi;                  
+    unsigned long _previousTimeWifi; 
+    unsigned long _diffWifi;
+    unsigned long _diffMqtt;                 
     uint32_t _notConnectedCounter;
     String _mqtt_client_id;
     uint32_t _chipId;
