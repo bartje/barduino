@@ -24,7 +24,7 @@ wifi_mqtt::wifi_mqtt(String wifiSsid, String wifiPassword)
  
 }
 
-wifi_mqtt::wifi_mqtt(String wifiSsid, String wifiPassword, String mqttServer)
+wifi_mqtt::wifi_mqtt(String wifiSsid, String wifiPassword, char mqttServer)
 {
     _wifiSsid = wifiSsid;
     _wifiPassword = wifiPassword ;
