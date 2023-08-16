@@ -9,7 +9,7 @@
 //#include <WiFi.h>         //For Wifi
 //#include <PubSubClient.h> //For MQTT
 
-#define intervalMQTT 10000   //tijd tussen mqtt reconnect attempts
+#define intervalMqtt 10000   //tijd tussen mqtt reconnect attempts
 #define intervalWifi 30000   //tijd tussen wifi reconnect attempts
 #define maxNotConnectedCounter 150
 
@@ -115,7 +115,7 @@ bool wifi_mqtt::reconnect()
     } else {
       _diffMqtt = millis() - _previousTimeMqtt;
       if (!mqtt_client.connected() and _diffMqtt>intervalMqtt) {
-        mqtt_reconnect();
+        connect_mqtt();
         _previousTimeMqtt += _diffMqtt;
       }
       // indien mqtt connected, dan mag je .loop doen
