@@ -35,7 +35,7 @@ wifi_mqtt::wifi_mqtt(char wifiSsid, char wifiPassword, char mqttServer)
     WiFiClient espClient;
     PubSubClient mqtt_client(espClient);
     for(int i=0; i<17; i=i+8) {
-	    uint32_t chipId |= ((ESP.getEfuseMac() >> (40 - i)) & 0xff) << i;
+	    _chipId |= ((ESP.getEfuseMac() >> (40 - i)) & 0xff) << i;
 	  }
     _mqtt_client_id="ESP32-";
     _mqtt_client_id=_mqtt_client_id+chipId;        
