@@ -70,8 +70,8 @@ bool wifi_mqtt::connect_wifi()
   return true;
 }
 
-bool wifi_mqtt::connect_mqtt()
-{
+bool wifi_mqtt::connect_mqtt() {
+  bool rc;
   mqtt_client.setServer(_mqttServer, 1883);
   mqtt_client.setBufferSize(1024);
   Serial.printf("   Server IP: %s\r\n",_mqttServer);  
@@ -85,51 +85,49 @@ bool wifi_mqtt::connect_mqtt()
     //if (mqtt_client.connect(mqtt_client_id.c_str(), mqtt_user, mqtt_password)) {
     if (mqtt_client.connect(_mqtt_client_id.c_str())) {
       Serial.println("MQTT connected");
-      //mqtt_client.publish(topic, "init of mqtt");
-      //Serial.println(topic_discovery);
-
-      // homeassistant discovery
-      //char payload[] ="{\"automation_type\":\"trigger\",\"type\":\"button_short_press\",\"subtype\":\"button_1\",\"topic\":\"home/deurbel\",\"payload\":\"single\",\"device\":{\"identifiers\":[\"ESP8266-13360373\"],\"name\":\"Deurbel\",\"model\":\"esp_deurbel\",\"manufacturer\":\"Witje\"}}";
-      //Serial.println(sizeof(payload)/sizeof(char));
-      //mqtt_client.publish(topic, payload);
-      //mqtt_client.publish(topic_discovery_b, "{\"automation_type\":\"trigger\",\"type\":\"button_short_press\",\"subtype\":\"button_1\",\"topic\":\"home/deurbel\",\"device\":{\"identifiers\":[\"ESP8266-13360373\"],\"name\":\"Deurbel\",\"model\":\"esp_deurbel\",\"manufacturer\":\"Witje\"}}");
-      //mqtt_client.publish(topic_discovery, payload,true);
-      
-      return true;
+      rc = true;
     } else {
       Serial.print("failed, rc=");
       Serial.print(mqtt_client.state());
-      return false;
+      rc = false;
     }
+  } else {
+    rc = true;
   }
+  return rc;
 }
 
-bool wifi_mqtt::reconnect()
-{
+bool wifi_mqtt::reconnect() {
+  bool rc;
   _diffWifi = millis() - _previousTimeWifi;
   
   if (WiFi.status() == WL_CONNECTED) {
     _previousTimeWifi += _diffWifi;
 
     if (!_mqttActive) {
-      return true;
+      rc = true;
     } else {
       _diffMqtt = millis() - _previousTimeMqtt;
-      if (!mqtt_client.connected() and _diffMqtt>intervalMqtt) {
-        connect_mqtt();
-        _previousTimeMqtt += _diffMqtt;
-        return false;
-      }
+      
       // indien mqtt connected, dan mag je .loop doen
       if (mqtt_client.connected()){ 
         mqtt_client.loop();
         _previousTimeMqtt += _diffMqtt;
-        return true;
+        rc  = true;
+      } else {
+        if (_diffMqtt>intervalMqtt) {
+          rc = connect_mqtt();
+          _previousTimeMqtt += _diffMqtt;
+        } else {
+          rc = false;
+        }
       }
+      
     }
   } else if (_diffWifi > intervalWifi) {
       WiFi.reconnect();
       _previousTimeWifi += _diffWifi;
-      return false;
+      rc = false;
   }
+  return rc;
 }
