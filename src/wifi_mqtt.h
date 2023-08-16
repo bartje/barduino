@@ -31,6 +31,8 @@ class wifi_mqtt
     uint32_t _notConnectedCounter;
     String _mqtt_client_id;
     uint32_t _chipId;
+    WiFiClient espClient;
+    PubSubClient mqtt_client(espClient);
     
 
 };

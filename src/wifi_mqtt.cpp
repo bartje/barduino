@@ -32,8 +32,7 @@ wifi_mqtt::wifi_mqtt(char wifiSsid, char wifiPassword, char mqttServer)
     _mqttActive = true;
     _previousTimeMqtt = millis();                  
     _previousTimeWifi = millis();
-    WiFiClient espClient;
-    PubSubClient mqtt_client(espClient);
+  
     for(int i=0; i<17; i=i+8) {
 	    _chipId |= ((ESP.getEfuseMac() >> (40 - i)) & 0xff) << i;
 	  }
@@ -72,7 +71,7 @@ bool wifi_mqtt::connect_wifi()
 
 bool wifi_mqtt::connect_mqtt()
 {
-  mqtt_client.setServer(_mqtt_server, 1883);
+  mqtt_client.setServer(_mqttServer, 1883);
   mqtt_client.setBufferSize(1024);
   Serial.printf("   Server IP: %s\r\n",_mqtt_server);  
   //Serial.printf("   Username:  %s\r\n",mqtt_user);
