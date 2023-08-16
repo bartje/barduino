@@ -22,8 +22,8 @@ class wifi_mqtt
     bool connect_mqtt();
     bool reconnect();
   private:
-    String _wifiSsid;
-    String _wifiPassword;
+    char _wifiSsid;
+    char _wifiPassword;
     char _mqttServer;
     bool _mqttActive;
     unsigned long _previousTimeMqtt;                  
