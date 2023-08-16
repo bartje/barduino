@@ -7,7 +7,6 @@
 #define wifi_mqtt_h
 
 #include <Arduino.h>      //
-#include "IPAddress.h"
 #include "WiFi.h"         //For Wifi
 #include "PubSubClient.h" //For MQTT
 

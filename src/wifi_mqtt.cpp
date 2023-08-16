@@ -68,8 +68,8 @@ bool wifi_mqtt::connect_wifi()
       }
   }
   Serial.println("OK");
-  Serial.println("   IP address: ");
-  Serial.print(WiFi.localIP());
+  Serial.print("   IP address: ");
+  Serial.println(WiFi.localIP());
   return true;
 }
 
