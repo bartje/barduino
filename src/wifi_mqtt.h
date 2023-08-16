@@ -15,7 +15,7 @@ class wifi_mqtt
 {
   public:
     wifi_mqtt(String wifiSsid, String wifiPassword);
-    wifi_mqtt(String wifiSsid, String wifiPassword, char mqttServer);
+    wifi_mqtt(String wifiSsid, String wifiPassword, String mqttServer);
     
     void begin();
     bool connect_wifi();
@@ -24,7 +24,7 @@ class wifi_mqtt
   private:
     String _wifiSsid;
     String _wifiPassword;
-    char _mqttServer;
+    String _mqttServer;
     bool _mqttActive;
     unsigned long _previousTimeMqtt;                  
     unsigned long _previousTimeWifi;                  
