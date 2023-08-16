@@ -13,16 +13,22 @@
 class wifi_mqtt
 {
   public:
-    wifi_mqtt(char wifi_ssid, char wifi_password, char mqtt_server);
+    wifi_mqtt(char wifiSsid, char wifiPassword);
+    wifi_mqtt(char wifiSsid, char wifiPassword, char mqttServer);
+    
     void begin();
     bool connect_wifi();
     bool connect_mqtt();
     bool reconnect()
   private:
-    char _wifi_ssid;
-    char _wifi_password;
-    char _mqtt_server;
-    bool _mqtt;
+    char _wifiSsid;
+    char _wifiPassword;
+    char _mqttServer;
+    bool _mqttActive;
+    unsigned long _previousTimeMqtt = millis();                  
+    unsigned long _previousTimeWifi = millis();                  
+    const unsigned long _intervalMqtt = 10000;                   //tijd tussen mqtt reconnect attempts
+    const unsigned long _intervalWifi = 30000;                   //tijd tussen Wifi reconnect attempts
     
 
 };
