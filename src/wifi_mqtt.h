@@ -6,7 +6,7 @@
 #ifndef wifi_mqtt_h
 #define wifi_mqtt_h
 
-#include "Arduino.h"      //
+#include <Arduino.h>      //
 #include <WiFi.h>         //For Wifi
 #include <PubSubClient.h> //For MQTT
 
@@ -25,10 +25,10 @@ class wifi_mqtt
     char _wifiPassword;
     char _mqttServer;
     bool _mqttActive;
-    unsigned long _previousTimeMqtt = millis();                  
-    unsigned long _previousTimeWifi = millis();                  
-    const unsigned long _intervalMqtt = 10000;                   //tijd tussen mqtt reconnect attempts
-    const unsigned long _intervalWifi = 30000;                   //tijd tussen Wifi reconnect attempts
+    unsigned long _previousTimeMqtt;                  
+    unsigned long _previousTimeWifi;                  
+    uint32_t _notConnectedCounter;
+    String _mqtt_client_id;
     
 
 };
