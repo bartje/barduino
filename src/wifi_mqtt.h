@@ -32,7 +32,7 @@ class wifi_mqtt
     String _mqtt_client_id;
     uint32_t _chipId;
     WiFiClient espClient;
-    PubSubClient mqtt_client(espClient);
+    //PubSubClient mqtt_client(espClient);
     
 
 };

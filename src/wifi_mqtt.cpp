@@ -33,6 +33,7 @@ wifi_mqtt::wifi_mqtt(char wifiSsid, char wifiPassword, char mqttServer)
     _previousTimeMqtt = millis();                  
     _previousTimeWifi = millis();
   
+    PubSubClient mqtt_client(espClient);
     for(int i=0; i<17; i=i+8) {
 	    _chipId |= ((ESP.getEfuseMac() >> (40 - i)) & 0xff) << i;
 	  }
