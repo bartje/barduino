@@ -44,7 +44,12 @@ wifi_mqtt::wifi_mqtt(String wifiSsid, String wifiPassword, const char* mqttServe
 
 void wifi_mqtt::begin()
 {
-  //placeholder
+  bool rc1, rc2;
+  rc1 = connect_wifi();
+  if (_mqttActive) {
+    rc2 = connect_mqtt();
+  }
+  return (rc1 and rc2);
 }
 
 bool wifi_mqtt::connect_wifi()
