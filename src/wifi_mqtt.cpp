@@ -9,9 +9,9 @@
 //#include <WiFi.h>         //For Wifi
 //#include <PubSubClient.h> //For MQTT
 
-#define intervalMQTT = 10000   //tijd tussen mqtt reconnect attempts
-#define intervalWifi = 30000   //tijd tussen wifi reconnect attempts
-#define maxNotConnectedCounter = 150
+#define intervalMQTT 10000   //tijd tussen mqtt reconnect attempts
+#define intervalWifi 30000   //tijd tussen wifi reconnect attempts
+#define maxNotConnectedCounter 150
 
 wifi_mqtt::wifi_mqtt(char wifiSsid, char wifiPassword)
 {
@@ -38,7 +38,7 @@ wifi_mqtt::wifi_mqtt(char wifiSsid, char wifiPassword, char mqttServer)
 	    _chipId |= ((ESP.getEfuseMac() >> (40 - i)) & 0xff) << i;
 	  }
     _mqtt_client_id="ESP32-";
-    _mqtt_client_id=_mqtt_client_id+chipId;        
+    _mqtt_client_id=_mqtt_client_id+_chipId;        
 
 }
 
@@ -57,7 +57,7 @@ bool wifi_mqtt::connect_wifi()
   while (WiFi.status() != WL_CONNECTED) {
     delay(200);
     Serial.print(".");
-    notConnectedCounter++;
+    _notConnectedCounter++;
       if(_notConnectedCounter > maxNotConnectedCounter) { // Reset board if not connected after xxx attempts
           Serial.println("Resetting due to Wifi not connecting...");
           ESP.restart();
@@ -67,14 +67,14 @@ bool wifi_mqtt::connect_wifi()
   Serial.println("OK");
   Serial.println("   IP address: ");
   Serial.print(WiFi.localIP());
-  return true 
+  return true;
 }
 
 bool wifi_mqtt::connect_mqtt()
 {
-  mqtt_client.setServer(mqtt_server, 1883);
+  mqtt_client.setServer(_mqtt_server, 1883);
   mqtt_client.setBufferSize(1024);
-  Serial.printf("   Server IP: %s\r\n",mqtt_server);  
+  Serial.printf("   Server IP: %s\r\n",_mqtt_server);  
   //Serial.printf("   Username:  %s\r\n",mqtt_user);
   //Serial.println("   Cliend Id: "+mqtt_client_id);  
   Serial.println("   MQTT configured!");       
@@ -83,7 +83,7 @@ bool wifi_mqtt::connect_mqtt()
     Serial.print("Attempting MQTT connection...");
     // Attempt to connect   
     //if (mqtt_client.connect(mqtt_client_id.c_str(), mqtt_user, mqtt_password)) {
-    if (mqtt_client.connect(mqtt_client_id.c_str())) {
+    if (mqtt_client.connect(_mqtt_client_id.c_str())) {
       Serial.println("MQTT connected");
       //mqtt_client.publish(topic, "init of mqtt");
       //Serial.println(topic_discovery);
@@ -100,10 +100,10 @@ bool wifi_mqtt::connect_mqtt()
       Serial.print(mqtt_client.state());
     }
   }
-  return true 
+  return true;
 }
 
 bool wifi_mqtt::reconnect()
 {
-  return true 
+  return true;
 }
